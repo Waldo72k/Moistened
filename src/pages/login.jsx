@@ -1,6 +1,9 @@
 import React from 'react'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, InputAdornment, IconButton  } from '@mui/material'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { auth } from "../config/firebase"
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const tema = createTheme({
   status: {
@@ -32,6 +35,7 @@ const Login = () => {
           <TextField fullWidth label="" id="fullWidth" className="" />
           <p>Contraseña</p>
           <TextField fullWidth label="" id="fullWidth" />
+          
         </div>
         <div className="flex flex-col mx-auto xl:w-1/3 lg:w-1/3 sm:w-1/2 mt-7 ">
         <ThemeProvider theme={tema}>

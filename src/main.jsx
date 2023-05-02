@@ -5,10 +5,13 @@ import './index.css'
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import PermanentDrawerLeft from './pages/dashboard';
+import { Auth } from './components/auth';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Dashboard/>
+    <div className='App'>
+    <Login/>
+    </div>
   </React.StrictMode>,
 )

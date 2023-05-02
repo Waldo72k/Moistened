@@ -30,7 +30,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { db } from "../firebase";
 import { uid } from "uid";
 import { set, ref } from "firebase/database"
 import { TextField, Button } from '@mui/material'
