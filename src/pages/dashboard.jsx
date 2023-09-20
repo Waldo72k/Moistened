@@ -31,9 +31,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { uid } from "uid";
-import { set, ref } from "firebase/database"
 import { TextField, Button } from '@mui/material'
-
+import {app, db} from '../config/firestore';
 
 const drawerWidth = 240;
 
@@ -56,15 +55,18 @@ const tema = createTheme({
   },
 });
 
-function createData(name, area, fruit, status, btn) {
-  return { name, area, fruit, status, btn };
+function createData(name, area, fruit, status, btn, shdw) {
+  return { name, area, fruit, status, btn, shdw };
 }
 
 const rows = [
-  createData('Aspersor 1', 'Area Norte', 'Rabano', 'Encendido', 'Boton'),
-  createData('Aspersor 2', 'Area Norte', 'Rabano', 'Encendido', 'Boton'),
-  createData('Aspersor 3', 'Area Norte', 'Rabano', 'Encendido', 'Boton'),
-];
+  createData('Aspersor 1', 'P-Sur', 'Manzana', '〇Encendido', '0%', "0 0 10px #00ff00" ),
+  createData('Aspersor 2', 'P-Este', 'Manzana', '〇Operando', '0%', "0 0 10px #ff8000" ),
+  createData('Aspersor 3', 'P-Nort', 'Manzana', '〇Apagado', '0%', "0 0 10px #ff0101" ),
+];  
+
+
+
 
 export default function PermanentDrawerLeft() {
   const [open, setOpen] = useState(false);
@@ -72,21 +74,7 @@ export default function PermanentDrawerLeft() {
     setOpen(!open);
   };
 
-  const [todo, setTodo] = useState("");
 
-  const handleTodoChange =(e)=>{
-      setTodo(e.target.value)
-  }
-
-  const writeToDatabase = () => {
-      const uuid = uid();
-      set(ref(db, `/${uuid}`), {
-        todo,
-        uuid,
-      });
-
-      setTodo("");
-  };
 
   return (
     <ThemeProvider theme={tema}>
@@ -202,11 +190,7 @@ export default function PermanentDrawerLeft() {
         <Typography variant="h3" fontWeight="bold">
           Monitor
         </Typography>
-        <div className='app'>
-          <TextField label="Todo" value={todo} onChange={handleTodoChange} />
-          <Button variant="contained" onClick={writeToDatabase}>Submit</Button>
-        </div>
-        <FormControl fullWidth sx={{ m: 1, width: '60%' }}>
+        <FormControl fullWidth sx={{ m: 1, width: '99%' }}>
         <InputLabel htmlFor="outlined-adornment-amount">Buscar un sensor</InputLabel>
             <OutlinedInput
               id="outlined-adornment-amount"
@@ -230,7 +214,7 @@ export default function PermanentDrawerLeft() {
             <TableCell align="right">Localizacion</TableCell>
             <TableCell align="right">Fruto asignado</TableCell>
             <TableCell align="right">Estatus</TableCell>
-            <TableCell align="right">Acciones</TableCell>
+            <TableCell align="right">% Humedad</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -244,7 +228,7 @@ export default function PermanentDrawerLeft() {
               </TableCell>
               <TableCell align="right">{row.area}</TableCell>
               <TableCell align="right">{row.fruit}</TableCell>
-              <TableCell align="right">{row.status}</TableCell>
+              <TableCell align="right" style={{ textShadow: row.shdw}}>{row.status}</TableCell>
               <TableCell align="right">{row.btn}</TableCell>
             </TableRow>
           ))}

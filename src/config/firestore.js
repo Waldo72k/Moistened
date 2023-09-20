@@ -1,7 +1,8 @@
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth"; //Todo lo comentado aqui se cambia con las cosas que tienen enseguida para regresarlo a la version anterior
-// import firebase from 'firebase/app';
-// import 'firebase/database';
+import { getDatabase } from "firebase/database";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAO491O1_dd0rm51w0GhToluVMPMRNAZtg",
@@ -15,12 +16,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
-export {auth}
+const db = getDatabase(app);
 
-// firebase.initializeApp(firebaseConfig);
-
-// const database = firebase.database();
-
-// export default database;
+export { app, db };
